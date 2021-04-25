@@ -1,0 +1,104 @@
+$max-content-width: 832px;
+$spacing: 16px;
+$base-text-color: #222;
+
+* {
+    box-sizing: border-box;
+    color: $base-text-color;
+}
+html {
+    height: 100%;
+}
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #eee;
+}
+body {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 14px;
+    line-height: 24px;
+    display: flex;
+    justify-content: center;
+    min-height: 100%;
+}
+textarea {
+    resize: none;
+    padding: 10px;
+}
+textarea,
+input,
+button {
+    &::-moz-focus-inner {
+        border: 0;
+        outline: 0;
+    }
+    border: 0;
+}
+button {
+    background: rgb(198,198,198);
+    background: linear-gradient(0deg, rgba(198,198,198,1) 0%, rgba(230,230,230,1) 84%, rgba(226,226,226,1) 100%);
+}
+
+h1, h2, h3 {
+    color: #232;
+    font-weight: 400;
+}
+
+h1 {
+    margin: 28px 0 20px;
+    font-size: 28px;
+}
+
+h2 {
+    margin: $spacing 0;
+    font-size: 22px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+}
+
+h3 {
+    font-size: 16px;
+    margin: $spacing 0 10px;
+    background-color: #777;
+    padding: 1px 8px;
+    color: #eee;
+}
+
+p, ul {
+    margin: 10px 0;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+a, a span {
+    color: #177;
+}
+
+img {
+    max-width: 100%;
+}
+
+#target {
+    width: 100%;
+    min-height: 100%;
+    background-color: white;
+    padding: 0 $spacing 30px;
+    position: relative;
+}
+
+@media (min-width: $max-content-width) {
+    #target {
+        width: $max-content-width;
+        max-width: $max-content-width;
+    }
+}
+
+.ui-disabled {
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: default;
+}
