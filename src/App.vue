@@ -19,13 +19,17 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 import { useState } from './state';
 export default {
     setup() {
       const state = useState()
       const href = computed(() => state.href)
+      const spinner = computed(() => state.spinner)
       const exception = computed(() => state.exception)
+      watch(spinner, (v) => {
+        document.body.className = v ? 'spinner' : ''
+      })
       return { href, exception }
     }
 }

@@ -19,38 +19,32 @@ const router = createRouter({
 const app = createApp(App)
 const state = createState()
 
-router.beforeEach(async (to, from) => {
-  try {
-    const prevContent = state.contents.get(state.currentContentPath)
-    if (prevContent && state.scrollY !== undefined) {
-      prevContent.scrollY = state.scrollY
-    }
-    let path = to.path
-    state.href = path
-    if (path[path.length - 1] === '/') {
-      path = `${path}index`
-    }
-    if (!state.contents.has(path)) {
-      state.pendingContent = await CL.load(path)
-    }
-    state.pendingContentPath = path
-    state.exception = null
-  } catch (e) {
-    state.exception = e
+router.beforeEach(() => {
+  const prevContent = state.contents.get(state.currentContentPath)
+  if (prevContent && state.scrollY !== undefined) {
+    prevContent.scrollY = state.scrollY
   }
 })
 
 // Content needs to be applied AFTER the history/document URI has changed,
 // otherwise relative URLs (images etc.) will be fetched incorrectly
-router.afterEach(() => {
-  if (state.exception === null) {
-    if (!state.contents.has(state.pendingContentPath)) {
-      state.contents.set(state.pendingContentPath, state.pendingContent)
+router.afterEach(async (to, from) => {
+  try {
+    let path = to.path
+    if (path[path.length - 1] === '/') {
+      path = `${path}index`
     }
-    state.currentContentPath = state.pendingContentPath
-    delete state.pendingContent
-    delete state.pendingContentPath
-  }
+    if (!state.contents.has(path)) {
+      state.spinner = true
+      state.contents.set(path, await CL.load(path))
+      state.spinner = false
+    }
+    state.currentContentPath = path
+    state.href = to.path
+    state.exception = null
+  } catch (e) {
+    state.exception = e
+  }  
 })
 
 app.use(router)

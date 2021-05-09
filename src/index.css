@@ -15,6 +15,13 @@ body {
     padding: 0;
     background-color: #eee;
 }
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 body {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -24,6 +31,26 @@ body {
     display: flex;
     justify-content: center;
     min-height: 100%;
+
+    &.spinner {
+        position: relative;
+        &::before {
+            content: '';
+            box-sizing: border-box;
+            position: fixed;
+            border-radius: 50%;
+            z-index: 10;
+            border: 2px solid #aec1ae;
+            border-top-color: #fff;
+            animation: spinner 0.6s linear infinite;
+            top: 50%;
+            left: 50%;
+            width: 100px;
+            height: 100px;
+            margin-top: -50px;
+            margin-left: -50px;
+        }
+    }
 }
 textarea {
     resize: none;

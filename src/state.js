@@ -4,6 +4,7 @@ export const createState = () => reactive({
   exception: null,
   contents: new Map(),
   currentContentPath: '/',
+  spinner: false,
   href: location.pathname,
 })
 export const useState = () => inject(stateSymbol)
